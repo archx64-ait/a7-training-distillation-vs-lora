@@ -9,12 +9,13 @@
 
 I used the Hate speech offensive tweets by Davidson et al for this assignment. It can be downloaded from this link. <https://www.kaggle.com/datasets/eldrich/hate-speech-offensive-tweets-by-davidson-et-al> The dataset has the following classes for classification:
 
-- 0: Hate speech
-  - Indicates instances of hate speech.
-- 1: Offensive language
-  - Indicates offensive language
-- 2: Neither offensive nor hate speech
-  - Indicates the text in a tweet is neither offensive nor hate speech.
+```json
+{
+  0: "Hate Speech", 
+  1: "Offensive", 
+  2: "Neutral"
+}
+```
 
 ## Odd Layer and Even Layer Training
 
