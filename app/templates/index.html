@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Toxic Comment Classifier</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center">Toxic Comment Classifier</h2>
+    <form method="POST">
+      <div class="mb-3">
+        <textarea class="form-control" name="text" rows="4" placeholder="Enter your comment here..." required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="modelSelect" class="form-label">Choose Model:</label>
+        <select class="form-select" name="model" id="modelSelect">
+          <option value="odd_layers" {% if selected_model == 'odd_layers' %}selected{% endif %}>Odd Layers</option>
+          <option value="even_layers" {% if selected_model == 'even_layers' %}selected{% endif %}>Even Layers</option>
+          <option value="lora" {% if selected_model == 'lora' %}selected{% endif %}>LoRA</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Classify</button>
+    </form>
+    {% if prediction %}
+      <div class="alert alert-info text-center mt-4">
+        <strong>Prediction:</strong> {{ prediction }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
