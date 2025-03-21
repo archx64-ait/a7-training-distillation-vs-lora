@@ -1,0 +1,2 @@
+,Model,Train Loss,Validation Loss,Test Accuracy,Test F1-Score
+0,LoRA,0.4343,0.41589078307151794,0.8628294782140936,0.8355696465413649

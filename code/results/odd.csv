@@ -1,0 +1,2 @@
+,Model,Train Loss,Validation Loss,Test Accuracy,Test F1-Score
+0,Odd Layers,0.2011,0.2500963509082794,0.9125874125874126,0.9104800576598606
