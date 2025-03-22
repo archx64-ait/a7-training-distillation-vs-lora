@@ -37,6 +37,22 @@ The evaluation of three models - `Even Layers`, `Odd Layers`, and `LoRA` yielded
 
 I have observed that even-layer model achieved the lowest losses and highest test performance, indicating that even layers retained more transferable knowledge from the teacher. On the other hand, odd-layer model closely followed, showing slightly higher validation loss and marginally lower performance. Although LoRA model is parameter-efficient, it significantly underperformed in all metrics, suggesting a gap in effective knowledge transfer or underfitting.
 
+### Implementation Challenges
+
+#### Distillation (Odd and Even Layers)
+
+Creating valid 6-layer student models from a 12-layer BERT requires carefully selecting and restructuring layers. Loading pretrained weights without deep copy resulted in unexpected tensor sharing which cases VRAM overflow `OutOfMemoryError`. This problem was tackled as I avoided `deepcopy()` by slicing the encoder layer list directly and re-assigning it, minimizing memory usage.
+
+#### LoRA
+
+LoRA is usually applied to full models for adapting it to a compressed architecture (6 layers) is non-trivial. Applying LoRA on student BERT caused training instability, reduced performance, and additionally model state loading errors due to shape mismatches. LoRA showed noticeably higher training and validation losses, and a ~7% drop in test accuracy. It has insufficient representation power or ineffective adaptation when used on a shallow model.
+
+#### Proposed Improvements
+
+1. For Hybrid LoRA + Distillation, firstly distill knowledge into a student (as with odd/even layers), then apply LoRA on top of the distilled student.
+
+2. To implement layer-wise learning rate adjustment, we can se discriminative learning rates to train higher transformer layers more aggressively while freezing/slow-training lower layers.
+
 ## Web Application Development
 
 Navigate to the app directory and execute the following command to run the application. Execute the following command:
